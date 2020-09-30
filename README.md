@@ -1,6 +1,6 @@
-# primo_progetto L4
- - creare un quinto url per visualizzare la pagina variabili.html:
- http://127.0.0.1:8000/prima_app/variabili
- la pagina riceve dei tre parametri e li visualizza in un elenco
+# primo_progetto L5
+ - creare un sesto url per visualizzare la pagina index.html:
+ http://127.0.0.1:8000/prima_app/index
+ la pagina mostra un elenco di link ai 5 url fin'ora creati
  
- ##### nb.creare il file prima_app.templates.chi_siamo.html  
+ ##### nb.creare il file prima_app.index.html  

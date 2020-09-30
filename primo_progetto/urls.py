@@ -20,4 +20,5 @@ from prima_app.views import homepage
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homepage,name='homepage'),
+    path('prima_app/', include('prima_app.urls')),
 ]

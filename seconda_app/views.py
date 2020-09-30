@@ -30,3 +30,9 @@ def esempio_elif(request):
     'list1': [1, datetime.date(2019,7,16), 'Make your life productive!'],
     'list2': [2, datetime.date(2019,7,16), 'Do not give up!']}
     return render(request, "es_ifelif.html", dic)
+
+#L9
+def esempio_for(request):
+    #https://www.decodejava.com/django-template-for-tag.htm
+    dic = { 'list1': [1, datetime.date(2019,7,16), 'Do not give up!'],'list2': [1, datetime.date(2019,7,16), 'Do not give up!'] }
+    return render(request, "es_for.html", dic)

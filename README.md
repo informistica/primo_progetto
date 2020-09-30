@@ -1,7 +1,7 @@
-# primo_progetto L6
+# primo_progetto L7
  - creare una seconda_app :
  posizionarsi in ./primo_progetto ed eseguire: py manage.py startapp seconda_app
- http://127.0.0.1:8000/seconda_app/es_if
+ http://127.0.0.1:8000/seconda_app/es_ifel
  la pagina esegue degli if utilizzando i parametri ricevuti
  
  ##### nb.creare la cartella seconda_app.templates e dentro il file es_if.html 

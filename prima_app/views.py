@@ -13,3 +13,8 @@ def menu(request):
 #L3
 def chisiamo(request):
     return render(request, "chi_siamo.html")
+
+#L4
+def variabili(request):
+    context= { 'var1': '10','var2': 'ciao', 'var3' : '123 hello world'}
+    return render(request, "variabili.html",context)

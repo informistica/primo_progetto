@@ -10,3 +10,10 @@ def esempio_if(request):
     'var3' : 300 }
     #Calling the render() method to render the request from es_if.html page by using the dictionary, dic
     return render(request, "es_if.html", dic)
+
+def esempio_ifelse(request):
+    #https://www.decodejava.com/django-template-if-else-tag.htm
+    dic = { 'var1' : 'admin',
+    'var2' : 'admin',
+    'var3' : 600 }
+    return render(request, "es_ifelse.html", dic)

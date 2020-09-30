@@ -1,6 +1,12 @@
-# primo_progetto L5
- - creare un sesto url per visualizzare la pagina index.html:
- http://127.0.0.1:8000/prima_app/index
- la pagina mostra un elenco di link ai 5 url fin'ora creati
+# primo_progetto L6
+ - creare una seconda_app :
+ posizionarsi in ./primo_progetto ed eseguire: py manage.py startapp seconda_app
+ http://127.0.0.1:8000/seconda_app/es_if
+ la pagina esegue degli if utilizzando i parametri ricevuti
  
- ##### nb.creare il file prima_app.index.html  
+ ##### nb.creare la cartella seconda_app.templates e dentro il file es_if.html 
+ ##### aggiugere l'app a quelle installate in settings.py 
+ ##### aggiungere il percorso della cartella seconda_app.templates in settings.py  
+ ##### creare il file seconda_app.urls.py
+ ##### aggiungere in primo_progetto.urls.py gli urls della seconda_app
+ ##### aggiungere nei file urls.py delle due app la variabile app_name

@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>if elif</title>
-</head>
-<body>
-<b>var1 = {{ var1 }}</b> <br/>
+{% extends 'base.html'%}
+{%block title%}
+	{{block.super}} | if elif
+{%endblock title%}
+
+{%block content%}
+   <b>var1 = {{ var1 }}</b> <br/>
 <b>var2 = {{ var2 }}</b> <br/>
 <b>var3 = {{ var3 }}</b> <br/>
 <b>str1 = {{ str1 }}</b> <br/>
@@ -16,9 +15,9 @@
 
 
 {% if var1 < var2 %}
-	<p><i>var1 is smaller than var2 </i></b>
+	<p><i>var1 is smaller than var2 </i></p>
 {% elif var1 > var2 %}
-	<p><i>var1 is greater than var2 </i></b>
+	<p><i>var1 is greater than var2 </i></p>
 {% endif %}
 
 
@@ -127,6 +126,4 @@
 {% elif zero != 0 %}
 	<p><i>zero is not equal to 0</i></p>
 {% endif %}
- 
-</body>
-</html>
+{%endblock content%}

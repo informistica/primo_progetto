@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>if else</title>
-</head>
-<body>
-<b>var1 = {{ var1 }}</b> <br/>
+{% extends 'base.html'%}
+{%block title%}
+	{{block.super}} | IF ELSE
+{%endblock title%}
+
+{%block content%}
+   <b>var1 = {{ var1 }}</b> <br/>
 	<b>var2 = {{ var2 }}</b> <br/>
 	<b>var3 = {{ var3 }}</b> <br/>
 
 
 	{% if var1 < var2 %}
-		<p><i>var1 is smaller than var2 </i></b>
+		<p><i>var1 is smaller than var2 </i></p>
 	{% else %}
-		<p><i>var1 is not smaller than var2 </i></b>
+		<p><i>var1 is not smaller than var2 </i></p>
 	{% endif %}
 
 
@@ -99,5 +98,4 @@
 	{% else %}
 		 <i>zero is not equal to 0</i></b>
 	{% endif %}
-</body>
-</html>
+{%endblock content%}

@@ -18,3 +18,6 @@ class Articolo(models.Model):
     """ il modello generico di un articolo di news """
     titolo = models.CharField(max_length=100) # alcuni campi necessitano di parametri obbligatori!
     contenuto = models.TextField()
+
+    def __str__(self):
+        return self.titolo

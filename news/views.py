@@ -28,3 +28,16 @@ class ArticoloListView(ListView):
         context["articoli"] = Articolo.objects.all()
         return context
 
+
+class GiornalistaDetailViewCB(DetailView):
+    model = Giornalista
+    template_name = "giornalista_detail.html"
+
+class GiornalistaListView(ListView):
+    model = Giornalista
+    template_name = "lista_giornalisti.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["giornalisti"] = Giornalista.objects.all()
+        return context

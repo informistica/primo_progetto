@@ -6,3 +6,5 @@ app_name = 'news'
 urlpatterns = [
     path('', home, name="homeview"),
 ]
+
+

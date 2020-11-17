@@ -9,8 +9,6 @@
         <h4><strong>Nome: </strong>{{ autore.nome }}</h4>
         <h4><strong>Cognome: </strong>{{ autore.cognome}}</h4>
         <h5><strong>Libri: </strong><a href="{% url 'libreria:profilo_autore' autore.id %}">Visualizza</a></h5>
-        <h5><strong>Genere: </strong>{% for genere in libro.genere.all %}{{ genere }} {% endfor %}</h5>
-        <h5><strong>ISBN: </strong>{{ libro.isbn }}</h5>
         <hr>
     {% endfor %}
 {% endblock content %}

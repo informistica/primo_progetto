@@ -1,2 +1,4 @@
 # primo_progetto master
- Progetto di training
+ Progetto di training:
+ 
+Prova pratica Livello II : Libreria

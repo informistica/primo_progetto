@@ -1,2 +1,4 @@
 # primo_progetto master
- Progetto di training
+ Progetto di training:
+ 
+ Pannello di admin

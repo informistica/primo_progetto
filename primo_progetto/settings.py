@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'seconda_app',
     'news',
     'libreria',
+    'forms_app',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +65,7 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'prima_app/templates'),
                  os.path.join(BASE_DIR, 'seconda_app/templates'),
                  os.path.join(BASE_DIR, 'news/templates'),
+                 os.path.join(BASE_DIR, 'forms_app/templates'),
                  os.path.join(BASE_DIR, 'templates'),
                  ],
         'APP_DIRS': True,

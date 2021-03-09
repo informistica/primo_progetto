@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block head_title %}{{ block.super }} | {{ autore }}{% endblock head_title %}
+
+{% block content %}
+<div class="container">
+    <h1>Compila il form di contatto, ti risponderemo quanto prima!</h1>
+  
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="btn btn-danger" value="INVIA">
+    </form>
+
+</div>
+{% endblock content %}

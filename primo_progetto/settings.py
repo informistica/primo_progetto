@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'news',
     'libreria',
     'forms_app',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

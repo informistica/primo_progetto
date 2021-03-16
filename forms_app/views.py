@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import FormContatto
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='/accounts/login/')
 def contatti(request):
 
     # Se la richiesta è di tipo POST, allora possiamo processare i dati

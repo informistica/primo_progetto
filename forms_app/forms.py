@@ -34,3 +34,4 @@ class FormRegistrazione(UserCreationForm):
         model = User
         fields = ['first_name','last_name','username', 'email', 'password1', 'password2']
         #fields = "__all__"
+

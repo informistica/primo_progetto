@@ -11,10 +11,8 @@ def contatti(request):
 
     # Se la richiesta è di tipo POST, allora possiamo processare i dati
     if request.method == "POST":
-
         # Creiamo l'istanza del form e la popoliamo con i dati della POST request (processo di "binding")
         form = FormContatto(request.POST)
-
         # is_valid() controlla se il form inserito è valido:
         if form.is_valid():
             # a questo punto possiamo usare i dati validi!
@@ -31,11 +29,8 @@ def contatti(request):
             print(nuovo_contatto.cognome)
             print(nuovo_contatto.email)
             print(nuovo_contatto.contenuto)
-
-
             # ringrazio l'utente per averci contattato - volendo possiamo effettuare un redirect a una pagina specifica
             return HttpResponse("<h1>Grazie per averci contattato!</h1>")
-
     # Se la richiesta HTTP usa il metodo GET o qualsiasi altro metodo, allora creo il form di default vuoto
     else:
         form = FormContatto()

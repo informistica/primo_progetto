@@ -45,7 +45,7 @@ def registrazioneView(request):
         if form.is_valid():
             username = form.cleaned_data["username"]
             email = form.cleaned_data["email"]
-            password = form.cleaned_data["password1"]
+            password = form.cleaned_data["password1"]   #fai attenzione all' 1
             User.objects.create_user(username=username, password=password, email=email)
             user = authenticate(username=username, password=password)  #si controllano le credenziali
             login(request, user)  # si effettua il login per l'utente autenticato

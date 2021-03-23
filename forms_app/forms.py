@@ -2,6 +2,9 @@ from django import forms
 from .models import Contatto
 from django.core.exceptions import ValidationError
 
+from django.contrib.auth.forms import UserCreationForm   
+from django.contrib.auth.models import User
+
 class FormContatto(forms.ModelForm):
     class Meta:
         model = Contatto
@@ -22,3 +25,13 @@ class FormContatto(forms.ModelForm):
         if len(dati)<20:
             raise ValidationError("Il contenuto inserito è troppo breve")
         return dati
+
+
+class FormRegistrazione(UserCreationForm):
+   
+    class Meta:
+        model = User
+        fields = ['first_name','last_name','username', 'email', 'password1', 'password2']
+        #fields = "__all__"  #nel caso si volessero inserire tutti i campi del modello User
+        #prova ad usare la riga 35 anzichè la 34 per vedere cosa cambia
+

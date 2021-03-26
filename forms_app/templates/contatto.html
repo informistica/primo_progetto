@@ -11,6 +11,6 @@
         {{ form|crispy }}
         <input type="submit" class="btn btn-danger" value="INVIA">
     </form>
-
+<p>Hai visitato questa pagina {{ num_visits_contatti }}{% if num_visits_contatti == 1 %} volta{% else %} volte{% endif %}.</p>
 </div>
 {% endblock content %}

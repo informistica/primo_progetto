@@ -8,7 +8,13 @@ from django.contrib.auth.models import User
 # Create your views here.
 @login_required(login_url='/accounts/login/')
 def contatti(request):
-
+    print(request.session.get('num_visi'))
+    num_visits_contatti = request.session.get('num_visits_contatti', 0)
+    num_visits_contatti+=1
+    request.session['num_visits_contatti'] =  num_visits_contatti
+    #mostro in console tutte le variabili di sessione   
+    for key, value in request.session.items():
+        print(f'{key} => {value}')
     # Se la richiesta è di tipo POST, allora possiamo processare i dati
     if request.method == "POST":
         # Creiamo l'istanza del form e la popoliamo con i dati della POST request (processo di "binding")
@@ -35,7 +41,7 @@ def contatti(request):
     else:
         form = FormContatto()
     # arriviamo a questo punto se si tratta della prima volta che la pagina viene richiesta(con metodo GET), o se il form non è valido e ha errori
-    context = {"form": form}
+    context = {"form": form,"num_visits_contatti":num_visits_contatti}
     return render(request, "contatto.html", context)
 
 

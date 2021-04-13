@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+    <h5  class="my-3" >Elenco post:</a></h5>
+    <div class="my-3"></div>
+    {% for post in posts %}
+        <p>{{ forloop.counter }})  <a href="{% url 'blog:leggi_post' pk=post.id %}">{{ post.titolo }}</a>
+            <small>({{ post.autore }} - {{ post.data_creazione }})</small>
+        </p>
+        <hr>
+    {% endfor %}
+</div>
+{% endblock content %}

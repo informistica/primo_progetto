@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'forms_app',
     'crispy_forms',
     'blog',
+    'tournament',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,7 @@ TEMPLATES = [
                  os.path.join(BASE_DIR, 'news/templates'),
                  os.path.join(BASE_DIR, 'forms_app/templates'),
                  os.path.join(BASE_DIR, 'blog/templates'),
+                 os.path.join(BASE_DIR, 'tournament/templates'),
                  os.path.join(BASE_DIR, 'templates'),
                  ],
         'APP_DIRS': True,
@@ -133,5 +135,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 LOGIN_REDIRECT_URL = '/'

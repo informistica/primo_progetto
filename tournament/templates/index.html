@@ -1,48 +1,49 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
 {% load static %}
 {% block stylesheet %}
-<link rel="stylesheet" href="https://fperucic.github.io/treant-js/Treant.css">
-  <link rel="stylesheet" href="https://fperucic.github.io/treant-js/examples/tennis-draw/example7.css">
+    <link rel="stylesheet" href="https://fperucic.github.io/treant-js/Treant.css">
+    <link rel="stylesheet" href="https://fperucic.github.io/treant-js/examples/tennis-draw/example7.css">
 {% endblock stylesheet %}
 
 {% block content %}
-	 <div class="row">
-		<div class="col-12">
-			<div class="card">
-				<div class="card-header">
-					<div class="card-content collapse show">
-						<div class="card-body card-dashboard" id="divCarta">
-							<select id="slcSceltaCorso" class="form-control scuro">
-              {% for course in courses %}
-                <option value="{{course|safe|slugify}}">{{course}}</option>
-              {% endfor %}
-              </select>
-              
-              <div id="divGiocatori">
-                <div class="row my-1">
-                  <div class="col" id="divHeadGiocatori1"><b>Giocatore 1</b>
-                  </div>
-                  <div class="col" id="divHeadGiocatori2"><b>Giocatore 2</b>
-                  </div>
-                </div> <hr>
-                <div class="row my-1">
-                  <div class="col" id="divGiocatori1">
-                  </div>
-                  <div class="col" id="divGiocatori2">
-                  </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-content collapse show">
+                        <div class="card-body card-dashboard" id="divCarta">
+                            <select id="slcSceltaCorso" class="form-control scuro">
+                                {% for course in courses %}
+                                    <option value="{{ course|safe|slugify }}">{{ course }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <div id="divGiocatori">
+                                <div class="row my-1">
+                                    <div class="col" id="divHeadGiocatori1"><b>Giocatore 1</b>
+                                    </div>
+                                    <div class="col" id="divHeadGiocatori2"><b>Giocatore 2</b>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row my-1">
+                                    <div class="col" id="divGiocatori1">
+                                    </div>
+                                    <div class="col" id="divGiocatori2">
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="btnCreaCoppia" class='btn btn-info'>Crea</button>
+
+                            <div class="chart" id="albero"></div>
+
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <button id="btnCreaCoppia" class='btn btn-info'>Crea</button>
-              
-                 <div class="chart" id="albero"></div>
-             
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--
+            </div>
+        </div>
+    </div>
+    <!--
     <div class="card my-3">
 		<div class="card-body">
 			<div class="row">
@@ -51,142 +52,159 @@
 		</div>
 	</div>
 	-->
-{% endblock content%}
-  
+{% endblock content %}
+
 {% block script %}
-<script src="{% static 'tournaments/Nodo.js' %}"></script>
-<script src="{% static 'tournaments/Albero.js' %}"></script>
-<script src="{% static 'tournaments/squadra.js' %}"></script>
-<script src="https://fperucic.github.io/treant-js/vendor/raphael.js"></script>
-<script src="https://fperucic.github.io/treant-js/Treant.js"></script>
-<script>
-  function creaNodo(giocatore) {
-    const nome = giocatore.val();
-    const forza = Number(prompt(`Inserisci la forza di ${nome}`));
-    const squadra = new Squadra(nome, forza);
-    return new Nodo(squadra);
-  }
-  function creaInputGiocatore(giocatore,i) {
-    const fieldset1=$("<fieldset></fieldset>").attr({class:"radio"});
-    const fieldset2=$("<fieldset></fieldset>").attr({class:"radio"});
-    const input1=$("<input></input>").attr({id:"radio1Giocatore"+i,name:"radio1Giocatore",type:"radio"}).val(giocatore);
-    const input2=$("<input></input>").attr({id:"radio2Giocatore"+i,name:"radio2Giocatore",type:"radio"}).val(giocatore);
-    const label1=$("<label></label>").attr({id:"label1Giocatore"+i,for:"radio1Giocatore"+i}).text(giocatore);
-    const label2=$("<label></label>").attr({id:"label2Giocatore"+i,for:"radio2Giocatore"+i}).text(giocatore);
-    $("#divGiocatori1").append(fieldset1);
-    $("#divGiocatori1").append(input1);
-    $("#divGiocatori1").append(label1);
-    $("#divGiocatori2").append(fieldset2);
-    $("#divGiocatori2").append(input2);
-    $("#divGiocatori2").append(label2);
-  }
-  let studenti={};
-  {% for course, students in students.items %}
-  studenti["{{course|safe|slugify}}"]={{students|safe}};
-  {% endfor %}
-  $("#slcSceltaCorso").on("change",function() {
-    const giocatori=studenti[$(this).val()];
-    $("#divGiocatori1, #divGiocatori2").empty();
-    giocatori.forEach((g,i)=>creaInputGiocatore(g,i));
-  });
-  $("#slcSceltaCorso").trigger("change");
-  let albero = new Albero();
-  $("#btnCreaCoppia").click(function() {
-    const g1=$("input[name='radio1Giocatore']").filter(":checked");
-    const g2=$("input[name='radio2Giocatore']").filter(":checked");
-    if(g1.length==0||g2.length==0)
-      return alert("Devi selezionare entrambi i giocatori");
-    if(g1.val()==g2.val())
-      return alert("Hai selezionato lo stesso giocatore");
-    //I giocatori sono selezionati e diversi
-    //Creo i due nodi
-    albero.strati[0].push(creaNodo(g1));
-    albero.strati[0].push(creaNodo(g2));
-    //Elimino le due label
-    $("label").filter((i,e)=>$(e).text()==g1.val()).remove();
-    $("label").filter((i,e)=>$(e).text()==g2.val()).remove();
-    //Elimino i due checkbox nella colonna opposta
-    $(`#radio2Giocatore${g1.attr("id").substring(15)}`).remove();
-    $(`#radio1Giocatore${g2.attr("id").substring(15)}`).remove();
-    //Elimino i due checkbox selezionati
-    g1.remove();
-    g2.remove();
-    const giocatoriRimanenti=$("#divGiocatori1").children().filter("input");
-    //Se ci sono ancora almeno due giocatori esco
-    if(giocatoriRimanenti.length>1)
-      return;
-    if(giocatoriRimanenti.length==0) {
-      scontra();
-      return;
-    }
-    //Rimane un solo giocatore
-    let giocatore=giocatoriRimanenti.eq(0);
-    albero.strati[0].push(creaNodo(giocatore));
-    //Svuoto le due colonne
-    $("#divGiocatori1").empty();
-    $("#divGiocatori2").empty();
-    //Creo l'albero
-    scontra();
-  });
-  function scontra() {
-    $("#albero").remove();
-    const divAlbero=$("<div></div>").addClass("chart").attr("id","albero");
-    $("#divCarta").append(divAlbero);
-    //Faccio scontrare le squadre
-    let indice = 1;
-    while (albero.strati[indice - 1].length != 1) {
-      //Creo un nuovo strato
-      albero.strati.push([]);
-      //Se i giocatori dello strato precedente sono dispari ne porto uno in questo strato
-      if(albero.strati[indice-1].length%2==1) 
-        albero.strati[indice].push(albero.strati[indice-1].pop());
-        
-      //Ciclo tutti i giocatori dello strato precedente
-      for (let i = 0; i < albero.strati[indice - 1].length - 1; i += 2) {
-        //Calcolo il vincitore
-        let somma=albero.strati[indice-1][i].valore.forza;
-        somma+=albero.strati[indice-1][i+1].valore.forza;
-        const vincitore = Math.random()*somma < albero.strati[indice-1][i].valore.forza ? 0 : 1;
-        //Creo e aggiungo il nuovo nodo
-        const nodo = new Nodo(albero.strati[indice - 1][vincitore + i].valore);
-        albero.strati[indice - 1][i].padre = nodo;
-        albero.strati[indice - 1][i + 1].padre = nodo;
-        nodo.sx = albero.strati[indice - 1][i + !vincitore];
-        nodo.dx = albero.strati[indice - 1][i + vincitore];
-        albero.strati[indice].push(nodo);
-      }
-      indice++;
-    }
-    //Prendo la radice dal vettore degli strati
-    albero.radice = albero.strati.pop()[0];
-    //Genero il grafico
-    const nodeStructure=albero.generaInfoGrafico();
+    <script src="{% static 'tournaments/Nodo.js' %}"></script>
+    <script src="{% static 'tournaments/Albero.js' %}"></script>
+    <script src="{% static 'tournaments/squadra.js' %}"></script>
+    <script src="https://fperucic.github.io/treant-js/vendor/raphael.js"></script>
+    <script src="https://fperucic.github.io/treant-js/Treant.js"></script>
+    <script>
+        function creaNodo(giocatore) {
+            const nome = giocatore.val();
+            const forza = Number(prompt(`Inserisci la forza di ${nome}`));
+            const squadra = new Squadra(nome, forza);
+            return new Nodo(squadra);
+        }
 
-    const treeStructure = {
-      chart: {
-        container: "#albero",
-        levelSeparation: 20,
-        siblingSeparation: 15,
-        subTeeSeparation: 15,
-        rootOrientation: "EAST",
+        function creaInputGiocatore(giocatore, i) {
+            const fieldset1 = $("<fieldset></fieldset>").attr({class: "radio"});
+            const fieldset2 = $("<fieldset></fieldset>").attr({class: "radio"});
+            const input1 = $("<input></input>").attr({
+                id: "radio1Giocatore" + i,
+                name: "radio1Giocatore",
+                type: "radio"
+            }).val(giocatore);
+            const input2 = $("<input></input>").attr({
+                id: "radio2Giocatore" + i,
+                name: "radio2Giocatore",
+                type: "radio"
+            }).val(giocatore);
+            const label1 = $("<label></label>").attr({
+                id: "label1Giocatore" + i,
+                for: "radio1Giocatore" + i
+            }).text(giocatore);
+            const label2 = $("<label></label>").attr({
+                id: "label2Giocatore" + i,
+                for: "radio2Giocatore" + i
+            }).text(giocatore);
+            $("#divGiocatori1").append(fieldset1);
+            $("#divGiocatori1").append(input1);
+            $("#divGiocatori1").append(label1);
+            $("#divGiocatori2").append(fieldset2);
+            $("#divGiocatori2").append(input2);
+            $("#divGiocatori2").append(label2);
+        }
 
-        node: {
-          HTMLclass: "tennis-draw",
-          drawLineThrough: true,
-        },
-        connectors: {
-          type: "straight",
-          style: {
-            "stroke-width": 2,
-            "stroke": "#ccc",
-          },
-        },
-      },
-      nodeStructure,
-    };
-    new Treant(treeStructure);
-    albero=new Albero();
-  }
-  </script>
+        let studenti = {};
+        {% for course, students in students.items %}
+            studenti["{{course|safe|slugify}}"] ={{students|safe}};
+        {% endfor %}
+        $("#slcSceltaCorso").on("change", function () {
+            const giocatori = studenti[$(this).val()];
+            $("#divGiocatori1, #divGiocatori2").empty();
+            giocatori.forEach((g, i) => creaInputGiocatore(g, i));
+        });
+        $("#slcSceltaCorso").trigger("change");
+        let albero = new Albero();
+        $("#btnCreaCoppia").click(function () {
+            const g1 = $("input[name='radio1Giocatore']").filter(":checked");
+            const g2 = $("input[name='radio2Giocatore']").filter(":checked");
+            if (g1.length == 0 || g2.length == 0)
+                return alert("Devi selezionare entrambi i giocatori");
+            if (g1.val() == g2.val())
+                return alert("Hai selezionato lo stesso giocatore");
+            //I giocatori sono selezionati e diversi
+            //Creo i due nodi
+            albero.strati[0].push(creaNodo(g1));
+            albero.strati[0].push(creaNodo(g2));
+            //Elimino le due label
+            $("label").filter((i, e) => $(e).text() == g1.val()).remove();
+            $("label").filter((i, e) => $(e).text() == g2.val()).remove();
+            //Elimino i due checkbox nella colonna opposta
+            $(`#radio2Giocatore${g1.attr("id").substring(15)}`).remove();
+            $(`#radio1Giocatore${g2.attr("id").substring(15)}`).remove();
+            //Elimino i due checkbox selezionati
+            g1.remove();
+            g2.remove();
+            const giocatoriRimanenti = $("#divGiocatori1").children().filter("input");
+            //Se ci sono ancora almeno due giocatori esco
+            if (giocatoriRimanenti.length > 1)
+                return;
+            if (giocatoriRimanenti.length == 0) {
+                scontra();
+                return;
+            }
+            //Rimane un solo giocatore
+            let giocatore = giocatoriRimanenti.eq(0);
+            albero.strati[0].push(creaNodo(giocatore));
+            //Svuoto le due colonne
+            $("#divGiocatori1").empty();
+            $("#divGiocatori2").empty();
+            //Creo l'albero
+            scontra();
+        });
+
+        function scontra() {
+            $("#albero").remove();
+            const divAlbero = $("<div></div>").addClass("chart").attr("id", "albero");
+            $("#divCarta").append(divAlbero);
+            //Faccio scontrare le squadre
+            let indice = 1;
+            while (albero.strati[indice - 1].length != 1) {
+                //Creo un nuovo strato
+                albero.strati.push([]);
+                //Se i giocatori dello strato precedente sono dispari ne porto uno in questo strato
+                if (albero.strati[indice - 1].length % 2 == 1)
+                    albero.strati[indice].push(albero.strati[indice - 1].pop());
+
+                //Ciclo tutti i giocatori dello strato precedente
+                for (let i = 0; i < albero.strati[indice - 1].length - 1; i += 2) {
+                    //Calcolo il vincitore
+                    let somma = albero.strati[indice - 1][i].valore.forza;
+                    somma += albero.strati[indice - 1][i + 1].valore.forza;
+                    const vincitore = Math.random() * somma < albero.strati[indice - 1][i].valore.forza ? 0 : 1;
+                    //Creo e aggiungo il nuovo nodo
+                    const nodo = new Nodo(albero.strati[indice - 1][vincitore + i].valore);
+                    albero.strati[indice - 1][i].padre = nodo;
+                    albero.strati[indice - 1][i + 1].padre = nodo;
+                    nodo.sx = albero.strati[indice - 1][i + !vincitore];
+                    nodo.dx = albero.strati[indice - 1][i + vincitore];
+                    albero.strati[indice].push(nodo);
+                }
+                indice++;
+            }
+            //Prendo la radice dal vettore degli strati
+            albero.radice = albero.strati.pop()[0];
+            //Genero il grafico
+            const nodeStructure = albero.generaInfoGrafico();
+
+            const treeStructure = {
+                chart: {
+                    container: "#albero",
+                    levelSeparation: 20,
+                    siblingSeparation: 15,
+                    subTeeSeparation: 15,
+                    rootOrientation: "EAST",
+
+                    node: {
+                        HTMLclass: "tennis-draw",
+                        drawLineThrough: true,
+                    },
+                    connectors: {
+                        type: "straight",
+                        style: {
+                            "stroke-width": 2,
+                            "stroke": "#ccc",
+                        },
+                    },
+                },
+                nodeStructure,
+            };
+            new Treant(treeStructure);
+            albero = new Albero();
+        }
+    </script>
 {% endblock script %}
  

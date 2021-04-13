@@ -1,6 +1,5 @@
 from courses.models import Course
 from django.shortcuts import render
-from students.views import getDefaultCustomize
 def index(request):
     courses=Course.objects.all()
     context={'courses':courses}

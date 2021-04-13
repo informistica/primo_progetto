@@ -13,8 +13,8 @@ def contatti(request):
     num_visits_contatti+=1
     request.session['num_visits_contatti'] =  num_visits_contatti
     #mostro in console tutte le variabili di sessione   
-    for key, value in request.session.items():
-        print(f'{key} => {value}')
+    #for key, value in request.session.items():
+    #    print(f'{key} => {value}')
     # Se la richiesta è di tipo POST, allora possiamo processare i dati
     if request.method == "POST":
         # Creiamo l'istanza del form e la popoliamo con i dati della POST request (processo di "binding")

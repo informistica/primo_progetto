@@ -25,6 +25,7 @@ urlpatterns = [
     path('news/', include('news.urls')),
     path('libreria/', include('libreria.urls')),
     path('forms/', include('forms_app.urls')),
+    path('blog/', include('blog.urls')),
 ]
 #Add Django site authentication urls (for login, logout, password management)
 urlpatterns += [

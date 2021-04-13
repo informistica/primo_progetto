@@ -1,4 +1,4 @@
 # primo_progetto master
  Progetto di training:
  
-Prova pratica Livello II : Libreria
+prima_app, seconda_app, libreria, news, forms_app, blog

@@ -11,10 +11,15 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-content collapse show">
+
+                        {% for torneo, squadre in squadre.items %}
+                            {{ torneo }} -- {{ squadre }}<br>
+                        {% endfor %}
+
                         <div class="card-body card-dashboard" id="divCarta">
                             <select id="slcSceltaCorso" class="form-control scuro">
-                                {% for course in courses %}
-                                    <option value="{{ course|safe|slugify }}">{{ course }}</option>
+                                {% for torneo in tornei %}
+                                    <option value="{{ torneo|safe }}">{{ torneo }}</option>
                                 {% endfor %}
                             </select>
 
@@ -43,15 +48,7 @@
             </div>
         </div>
     </div>
-    <!--
-    <div class="card my-3">
-		<div class="card-body">
-			<div class="row">
-				{{calendar}}
-			</div>
-		</div>
-	</div>
-	-->
+
 {% endblock content %}
 
 {% block script %}
@@ -69,6 +66,7 @@
         }
 
         function creaInputGiocatore(giocatore, i) {
+            console.log(giocatore,i);
             const fieldset1 = $("<fieldset></fieldset>").attr({class: "radio"});
             const fieldset2 = $("<fieldset></fieldset>").attr({class: "radio"});
             const input1 = $("<input></input>").attr({
@@ -97,12 +95,14 @@
             $("#divGiocatori2").append(label2);
         }
 
-        let studenti = {};
-        {% for course, students in students.items %}
-            studenti["{{course|safe|slugify}}"] ={{students|safe}};
+        let squadre2={};
+        {% for torneo, squadre in squadre.items %}
+            squadre2["{{torneo|safe}}"] = {{squadre|safe}};
         {% endfor %}
+        console.log("ciao1");
         $("#slcSceltaCorso").on("change", function () {
-            const giocatori = studenti[$(this).val()];
+            console.log("ciao");
+            const giocatori = squadre2[$(this).val()];
             $("#divGiocatori1, #divGiocatori2").empty();
             giocatori.forEach((g, i) => creaInputGiocatore(g, i));
         });

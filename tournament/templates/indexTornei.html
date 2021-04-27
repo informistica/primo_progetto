@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base1.html" %}
 {% load static %}
 {% block stylesheet %}
     <link rel="stylesheet" href="https://fperucic.github.io/treant-js/Treant.css">
@@ -11,6 +11,9 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-content collapse show">
+                        {% for s in squadre.items %}
+                            {{ s }}<br>
+                        {% endfor %}
 
                         {% for torneo, squadre in squadre.items %}
                             {{ torneo }} -- {{ squadre }}<br>

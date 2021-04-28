@@ -16,5 +16,5 @@ class Tornei (models.Model):
     def __str__(self):
         return self.nome
     class Meta:
-        verbose_name= "Torneo"
-        verbose_name_plural= "Tornei"
+        verbose_name = "Torneo"
+        verbose_name_plural = "Tornei"
